@@ -14,7 +14,8 @@ var back_bool = 0;
 var total_time = 0;
 document.getElementById('myX0').innerHTML = X0;
 M_old =[];
-var R = 2
+var R = 2;
+var R = R**2;
 var X0_vec=[];
 var Y0_vec=[];
 var side_vec=[];
@@ -72,7 +73,7 @@ function mandelbrot(){
       var c = new Complex(X0-side/2.+delta*i,(Y0+side/2.-delta*j))
       var h = 0
       z = new Complex(0,0)
-      while (h<max_iter && Math.sqrt(z.real * z.real + z.imaginary * z.imaginary)<R) {
+      while (h<max_iter && (z.real * z.real + z.imaginary * z.imaginary)<R2) {
         var z1 = z.real**2-z.imaginary**2+c.real
         var z2 = 2*z.real*z.imaginary+ c.imaginary
         z = new Complex(z1,z2)
