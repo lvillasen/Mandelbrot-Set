@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, user-scalable=no,initial-scale=1.0,maximum-scale=1.0,minimum-scale=1.0">
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({tex2jax: {inlineMath: [['$','$'], ['\\(','\\)']]}});
+</script>
+
+    <title>Mandelbrot</title>
+    <link rel="stylesheet" href="./mandelbrot.css">
+
+    <script type="text/javascript" async="" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.4/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
+</head>
+
+
+
+
+<body>
+    
+<div class="block_container"  style="background-color: #00b5e2; margin-left:10%; margin-right:10%;">    <p> </p>
+    <p> </p>
+    <br>
+
+        <h1> Mandelbrot Set</h1>
+
+     
+        <h2> CIIEC-BUAP</h2>
+
+      <p style="font-size: 30px; margin-left: 80%;">April, 10th, 2023 </p>
+        <p style="font-size: 20px; margin-left: 80%;"><a href="https://github.com/lvillasen/Mandelbrot-Set/" >Source Code</a> </p>
+        
+        <hr>
+
+<p style="color:black;font-size:30px;">
+The <a href="https://mathworld.wolfram.com/MandelbrotSet.html">Mandelbrot set</a>  consists of points that form a two-dimensional fractal. It is named after the mathematician Benoit Mandelbrot. 
+The set is computed by iterating the following equation:
+<p style="color:black;font-size:30px;">
+  
+
+
+\begin{equation*}
+z_{n+1}=z_n^2+c
+\end{equation*}
+
+with $z_0=0$ for all the the points $(x_p,y_p)$ of the x-y plane in the form of complex numbers $c = x_p+iy_p$. The image of the set is constructed by using a color for every point of the 2D image determined by the number of iterations required to reach <br>
+
+\begin{equation*}
+|z_n| =\sqrt{x_n^2+y_n^2}=2
+\end{equation*}   
+
+The colormaps we use are imported from Matplotlib by using <a href="https://github.com/timothygebhard/js-colormaps">this code</a>. We increase the color variability by repeating the colormaps as shown on the colormap canvas located on top of the main canvas.
+<br><br>
+You can experiment by changing the colormap, number of repetitions of the colormap, number of maximum iterations and number of bins per side of the image.
+
+Click on any point of the image to recalculate the image centered at that point with a side reduced by a factor of 10.
+
+<hr>
+ 
+
+
+ <div id="block_container" style="text-align:center;">
+    <label style="font-size: 15pt; margin-left: 0px;;"> Colormap</label>
+    <select id="colormap" style="margin-left: 0%;" onchange="draw()">
+                <option value="jet"  >jet</option>
+                <option value="hot">hot</option>
+                <option value="afmhot">afmhot</option>
+
+                <option value="Greens" >  Greens</option>
+                <option value="spring" >spring</option>
+                <option value="summer" >summer</option>
+                <option value="autumn" >autumn</option>
+                <option value="winter">winter</option>
+                <option value="seismic">seismic</option>
+                <option value="copper">copper</option>
+
+
+                <option value="viridis">viridiis</option>
+                <option value="turbo">turbo</option>
+                <option value="gist_rainbow">gist_rainbow</option>
+
+                <option value="terrain">terrain</option>
+                <option value="binary">binary</option>
+                <option value="RdPu">RdPu</option>
+                <option value="gist_gray" >gist_gray</option>
+                <option value="gist_ncar" selected >gist_ncar</option>
+                <option value="flag" >flag</option>
+                <option value="prism" >prism</option>
+                <option value="tab20" >tab20</option>
+
+            </select>
+           
+    
+            <label style="font-size: 15pt;">Colormap Repetitions: </label>
+             <select id="N_rep" style="margin-left: 0%;" onchange="draw()">
+             
+                <option value=1   >1</option>
+                 <option value=2  >2</option>
+                <option value=3 >3</option>
+                <option value=4 >4</option>
+                <option value=5 selected>5</option>
+                <option value=6 >6</option>
+                <option value=7  >7</option>
+            <option value=8 >8</option>
+                <option value=9 >9</option>
+                <option value=10 >10</option>
+                
+
+            </select>
+            <br>
+            <label style="font-size: 15pt;">Bins per Side: </label>
+        <input id="value_N" value="600" type="text" size="4"  onchange="plot_mandelbrot()":>
+        <label style="font-size: 15pt;"  >Max Iterations: </label>
+        <input id="Max_Iter" value="800" size="5" type="text" onchange="plot_mandelbrot()":>
+        
+        
+        <input class="favorite styled" type="button" id="start_stop" value="Reset" onclick="start();">
+        <input class="favorite styled" type="button" id="sreset" value="Back" onclick="back();">
+        <br>
+    
+
+    </div>
+
+<div id="wrapper">
+   
+   <canvas id="canvas" height="600" width="600"></canvas>
+    <canvas id="canvas2" height="20" width="600"></canvas>
+</div>
+
+
+
+        </div>
+  <div class="block_container"> 
+
+<h3 style="font-size: 15pt;  margin-left:10%;">X of Center: </h3><h3 id = "myX0"  style="font-size: 13pt;"></h3>
+<h3 style="float; font-size: 15pt;">Y of Center: </h3><h3 id = "myY0" style="font-size: 13pt;"></h3>
+<h3 style="font-size: 15pt;">Side: </h3><h3 id = "mySide" style="font-size: 13pt;"></h3>
+  </div>     
+<br><br>
+</body>
+
+
+<script src="./js-colormaps.js"></script>
+
+<script src="./mandelbrot.js"></script>
+</html>
