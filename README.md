@@ -1,5 +1,5 @@
 # Mandelbrot-Set
-Visualization of the Mandelbrot set in JavaScript. 
+Fast visualization of the Mandelbrot set in JavaScript using workers
 
 
 ## Usage
