@@ -12,3 +12,5 @@ https://ciiec.buap.mx/Mandelbrot
 
 ## Credits
 The colormaps were taken from https://github.com/timothygebhard/js-colormaps
+
+### Note that JavaScript workers do not work when running locally
